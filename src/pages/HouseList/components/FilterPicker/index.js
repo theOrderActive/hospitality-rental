@@ -14,8 +14,15 @@ import FilterFooter from '../../../../components/FilterFooter'
 
 export default class FilterPicker extends Component {
   state = {
-    value: null
+    value: this.props.defaultValue
   }
+  // constructor(props) {
+  //   super(props)
+  //   console.log('FilterPicker 创建了')
+  //   this.state = {
+  //     value: this.props.defaultValue
+  //   }
+  // }
 
   render() {
     const { onCancel, onSave, data, cols, type } = this.props
@@ -40,7 +47,7 @@ export default class FilterPicker extends Component {
 
         {/* 底部按钮 */}
         <FilterFooter
-          onCancel={() => onCancel()}
+          onCancel={() => onCancel(type)}
           onOk={() => onSave(type, value)}
         />
       </>
