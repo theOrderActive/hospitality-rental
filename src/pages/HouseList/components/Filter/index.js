@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+// 导入 Spring 组件
+import { Spring } from 'react-spring/renderprops'
+
 import FilterTitle from '../FilterTitle'
 import FilterPicker from '../FilterPicker'
 import FilterMore from '../FilterMore'
@@ -32,12 +35,26 @@ export default class Filter extends Component {
     // 控制 FilterPicker 或 FilterMore 组件的展示或隐藏
     openType: '',
     // 所有筛选条件数据
-    filtersData: {},
+    filtersData: {
+      // FilterMore
+      roomType: [],
+      oriented: [],
+      floor: [],
+      characteristic: [],
+      // FilterPicker
+      area: {},
+      subway: {},
+      rentType: [],
+      price: []
+    },
     // 筛选条件的选中值
     selectedValues
   }
 
   componentDidMount() {
+    // 获取到body
+    this.htmlBody = document.body
+
     this.getFiltersData()
   }
 
@@ -56,6 +73,9 @@ export default class Filter extends Component {
   // 注意：this指向的问题！！！
   // 说明：要实现完整的功能，需要后续的组件配合完成！
   onTitleClick = type => {
+    // 给 body 添加样式
+    this.htmlBody.className = 'body-fixed'
+
     const { titleSelectedStatus, selectedValues } = this.state
     // 创建新的标题选中状态对象
     const newTitleSelectedStatus = { ...titleSelectedStatus }
@@ -102,6 +122,8 @@ export default class Filter extends Component {
 
   // 取消（隐藏对话框）
   onCancel = type => {
+    this.htmlBody.className = ''
+
     const { titleSelectedStatus, selectedValues } = this.state
     // 创建新的标题选中状态对象
     const newTitleSelectedStatus = { ...titleSelectedStatus }
@@ -138,6 +160,8 @@ export default class Filter extends Component {
 
   // 确定（隐藏对话框）
   onSave = (type, value) => {
+    this.htmlBody.className = ''
+
     const { titleSelectedStatus } = this.state
     // 创建新的标题选中状态对象
     const newTitleSelectedStatus = { ...titleSelectedStatus }
@@ -276,9 +300,8 @@ export default class Filter extends Component {
       selectedValues,
       filtersData: { roomType, oriented, floor, characteristic }
     } = this.state
-    if (openType !== 'more') {
-      return null
-    }
+
+    // 移除 return null
 
     const data = {
       roomType,
@@ -300,18 +323,40 @@ export default class Filter extends Component {
     )
   }
 
+  // 渲染遮罩层div
+  renderMask() {
+    const { openType } = this.state
+
+    // 遮罩层是否隐藏
+    const isHide = openType === 'more' || openType === ''
+
+    return (
+      <Spring from={{ opacity: 0 }} to={{ opacity: isHide ? 0 : 1 }}>
+        {props => {
+          // 说明遮罩层已经完成动画效果，隐藏了
+          if (props.opacity === 0) {
+            return null
+          }
+
+          return (
+            <div
+              style={props}
+              className={styles.mask}
+              onClick={() => this.onCancel(openType)}
+            />
+          )
+        }}
+      </Spring>
+    )
+  }
+
   render() {
-    const { titleSelectedStatus, openType } = this.state
+    const { titleSelectedStatus } = this.state
 
     return (
       <div className={styles.root}>
         {/* 前三个菜单的遮罩层 */}
-        {openType === 'area' || openType === 'mode' || openType === 'price' ? (
-          <div
-            className={styles.mask}
-            onClick={() => this.onCancel(openType)}
-          />
-        ) : null}
+        {this.renderMask()}
 
         <div className={styles.content}>
           {/* 标题栏 */}

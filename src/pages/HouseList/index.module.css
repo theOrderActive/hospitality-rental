@@ -33,3 +33,14 @@
 .houseItems {
   padding: 0 15px;
 }
+
+.houseItems :global(.ReactVirtualized__List) {
+  padding-bottom: 50px;
+}
+
+.loading {
+  line-height: 120px;
+  text-align: center;
+  height: 110px;
+  background-color: #f6f5f6;
+}
