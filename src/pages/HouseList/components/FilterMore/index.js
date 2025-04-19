@@ -70,7 +70,7 @@ export default class FilterMore extends Component {
       onCancel,
       type
     } = this.props
-    
+
     // 该组件是否展示
     const isOpen = type === 'more'
 

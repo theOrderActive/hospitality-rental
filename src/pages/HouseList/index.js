@@ -44,6 +44,7 @@ export default class HouseList extends React.Component {
   filters = {}
 
   async componentDidMount() {
+    // console.log('HouseList -> did mount')
     const { label, value } = await getCurrentCity()
     this.label = label
     this.value = value
@@ -115,6 +116,7 @@ export default class HouseList extends React.Component {
     return (
       <HouseItem
         key={key}
+        onClick={() => this.props.history.push(`/detail/${house.houseCode}`)}
         // 注意：该组件中应该接收 style，然后给组件元素设置样式！！！
         style={style}
         src={BASE_URL + house.houseImg}
