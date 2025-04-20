@@ -11,6 +11,7 @@ import HouseDetail from './pages/HouseDetail'
 // 登录
 import Login from './pages/Login'
 import Registe from './pages/Registe'
+// import AuthRoute from './components/AuthRoute'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/home" component={Home} />
         <Route path="/citylist" component={CityList} />
         <Route path="/map" component={Map} />
+        {/* <AuthRoute path="/map" component={Map} /> */}
         {/* 房源详情的路由规则： */}
         <Route path="/detail/:id" component={HouseDetail} />
         <Route path="/login" component={Login} />
