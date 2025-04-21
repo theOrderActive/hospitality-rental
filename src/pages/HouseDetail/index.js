@@ -168,7 +168,10 @@ export default class HouseDetail extends Component {
         { text: '取消' },
         {
           text: '去登录',
-          onPress: () => history.push('/login', { from: location })
+          // 使用 replace 方法，解决登录后返回详情页面，再点击左上角返回按钮时
+          // 需要点击两次的问题
+          // onPress: () => history.push('/login', { from: location })
+          onPress: () => history.replace('/login', { from: location })
         }
       ])
     }

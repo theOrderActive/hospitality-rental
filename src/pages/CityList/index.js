@@ -87,7 +87,7 @@ export default class CityList extends React.Component {
     await this.getCityList()
 
     // 调用 measureAllRows，提前计算 List 中每一行的高度，实现 scrollToRow 的精确跳转
-    this.cityListComponent.current.measureAllRows()
+    // this.cityListComponent.current.measureAllRows()
   }
 
   // 获取城市列表数据的方法
