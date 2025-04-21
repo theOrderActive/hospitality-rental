@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, HashRouter, Route, Redirect } from 'react-router-dom'
 
 // 导入首页和城市选择两个组件（页面）
 import Home from './pages/Home'
@@ -20,7 +20,8 @@ import RentSearch from './pages/Rent/Search'
 
 function App() {
   return (
-    <Router>
+    // <Router>
+    <HashRouter>
       <div className="App">
         {/* 默认路由匹配时，跳转到 /home 实现路由重定向到首页 */}
         <Route path="/" exact render={() => <Redirect to="/home" />} />
@@ -39,7 +40,8 @@ function App() {
         <AuthRoute path="/rent/add" component={RentAdd} />
         <AuthRoute path="/rent/search" component={RentSearch} />
       </div>
-    </Router>
+      {/* </Router> */}
+    </HashRouter>
   )
 }
 

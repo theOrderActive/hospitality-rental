@@ -13,6 +13,8 @@ import './assets/fonts/iconfont.css'
 import './index.css'
 // 导入 react-virtualized 组件的样式
 import 'react-virtualized/styles.css'
+import axios from 'axios'
+axios.defaults.withCredentials = false; // 禁用全局凭据模式
 
 // ReactDOM.render(<App />, document.getElementById('root'))
 const root = ReactDOM.createRoot(document.getElementById('root'));
